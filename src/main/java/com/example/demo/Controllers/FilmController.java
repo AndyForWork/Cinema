@@ -50,11 +50,12 @@ public class FilmController {
     public RedirectView addFilmPost(@Valid Film film, @Valid Long genreId){
         logger.info("starting POST");
         logger.info(genreId.toString());
-        film.addGenre(genreRepository.findById(genreId));
+        if (genreRepository.findById(genreId).isPresent())
+            film.setGenre(genreRepository.findById(genreId).get());
         logger.info(film.toString());
         if (film.getId()!=null) {
             Film prev = filmRepository.findById(film.getId()).get();
-            prev.setGenres(film.getGenres());
+            prev.setGenre(film.getGenre());
             prev.setName(film.getName());
             prev.setInfo(film.getInfo());
             prev.setYear(film.getYear());

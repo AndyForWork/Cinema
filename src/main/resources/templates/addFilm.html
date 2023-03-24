@@ -16,8 +16,8 @@
         <input type="text" name = "info"  th:if="${getFilm != null}" th:value="${getFilm.info}">
         <br>
         <select  name = "genreId", th:object="${genreId}">
-            <option th:if="${getFilm != null && getFilm.getGenres().size()>0 && getFilm.getGenres().get(0).id != null}" th:text="${getFilm.getGenres().get(0).name}" th:value="${getFilm.getGenres().get(0).id}" selected="selected"></option>
-            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}" th:if="${getFilm == null || getFilm.getGenres().size() == 0 || (getFilm.getGenres().size()>0 && getFilm.getGenres().get(0).id != genre.id)}">
+            <option th:if="${getFilm != null && getFilm.getGenre()!=null}" th:text="${getFilm.getGenre().name}" th:value="${getFilm.getGenre().id}" selected="selected"></option>
+            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}" th:if="${getFilm == null || (getFilm!=null && getFilm.getGenre() == null) || (getFilm!=null && getFilm.getGenre() !=null && getFilm.getGenre().id != genre.id)}">
             </option>
         </select>
         <button>Подтвердить</button>
