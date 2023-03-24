@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все люди</title>
+</head>
+<body>
+  <div th:each="writer : ${screenwriter}">
+    <p th:text="${writer.firstName}"></p>
+    <p th:text="${writer.lastName}"></p>
+    <p th:text="${writer.birth}"></p>
+    <p th:text="${writer.mainInfo}"></p>
+    <p th:text="${writer.allInfo}"></p>
+    <p>*************************************</p>
+    <br>
+    <br>
+  </div>
+</body>
+</html>

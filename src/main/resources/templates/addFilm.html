@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление фильма</title>
+</head>
+<body>
+    <form method="post" th:object="${film}">
+        <input type="text" name = "name" th:field="*{name}"  th:if="${getFilm == null}" >
+        <input type="text" name = "name"  th:if="${getFilm != null}" th:value="${getFilm.name}">
+        <br>
+        <input type="date" name = "year" th:field="*{year}" th:if="${getFilm == null}">
+        <input type="date" name = "year"  th:if="${getFilm != null}" th:value="${getFilm.year}">
+        <br>
+        <input type="text" name = "info" th:field="*{info}" th:if="${getFilm == null}">
+        <input type="text" name = "info"  th:if="${getFilm != null}" th:value="${getFilm.info}">
+        <br>
+        <select  name = "genreId", th:object="${genreId}">
+            <option th:if="${getFilm != null && getFilm.getGenres().size()>0 && getFilm.getGenres().get(0).id != null}" th:text="${getFilm.getGenres().get(0).name}" th:value="${getFilm.getGenres().get(0).id}" selected="selected"></option>
+            <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}" th:if="${getFilm == null || getFilm.getGenres().size() == 0 || (getFilm.getGenres().size()>0 && getFilm.getGenres().get(0).id != genre.id)}">
+            </option>
+        </select>
+        <button>Подтвердить</button>
+    </form>
+</body>
+</html>
