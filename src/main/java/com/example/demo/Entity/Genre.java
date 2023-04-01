@@ -1,13 +1,25 @@
 package com.example.demo.Entity;
 
+import com.example.demo.Controllers.GenreController;
+import com.example.demo.Repository.FilmRepository;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
+@Data
 public class Genre {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +29,9 @@ public class Genre {
     @Column(unique = true)
     private String name;
 
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Film> films = new HashSet<>();
+
     public Genre() {
     }
 
@@ -24,23 +39,4 @@ public class Genre {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public String toString() {
-        return "Genre{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

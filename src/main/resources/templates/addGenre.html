@@ -5,9 +5,10 @@
     <title>add Genre</title>
 </head>
 <body>
-<form action="#" method="post" th:object="${genre}">
+<form method="post" th:object="${genre}">
   <p>Введите название жанра</p>
-    <input type="text" th:field="*{name}" placeholder="string">
+    <input th:if="${getGenre == null}" type="text" th:field="*{name}" placeholder="string">
+    <input th:if="${getGenre != null}" type="text" name="name" th:value="${getGenre.name}">
     <button>Подтвердить</button>
 </form>
 </body>

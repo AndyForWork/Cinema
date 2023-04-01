@@ -29,6 +29,7 @@ public class Film {
     //private String img;
 
     @ManyToOne
+    @JoinColumn(name="genre_id", nullable = true)
     private Genre genre;
 
     public Film() {
@@ -39,4 +40,5 @@ public class Film {
         this.year = year;
         this.info = desc;
     }
+
 }

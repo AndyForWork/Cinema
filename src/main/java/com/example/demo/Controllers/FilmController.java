@@ -5,6 +5,7 @@ import com.example.demo.Repository.FilmRepository;
 import com.example.demo.Repository.GenreRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.Date;
+import java.util.List;
 
 @Controller
 public class FilmController {
@@ -41,8 +43,7 @@ public class FilmController {
     @GetMapping("/film/del")
     public ModelAndView delFilmGet(@RequestParam(required = true) Long id){
         filmRepository.deleteById(id);
-        ModelAndView mav = new ModelAndView("allFilm");
-        mav.addObject("films",filmRepository.findAll());
+        ModelAndView mav = new ModelAndView("redirect:/film/all");
         return mav;
     }
 
@@ -50,11 +51,15 @@ public class FilmController {
     public RedirectView addFilmPost(@Valid Film film, @Valid Long genreId){
         logger.info("starting POST");
         logger.info(genreId.toString());
-        if (genreRepository.findById(genreId).isPresent())
+        logger.info(film.toString());
+        if (genreRepository.findById(genreId).isPresent()) {
+            logger.info("Есть жанр");
             film.setGenre(genreRepository.findById(genreId).get());
+        }
         logger.info(film.toString());
         if (film.getId()!=null) {
             Film prev = filmRepository.findById(film.getId()).get();
+            genreRepository.findById(prev.getGenre().getId()).get().getFilms().remove(prev);
             prev.setGenre(film.getGenre());
             prev.setName(film.getName());
             prev.setInfo(film.getInfo());
@@ -74,6 +79,5 @@ public class FilmController {
         mav.addObject("films",filmRepository.findAll());
         return mav;
     }
-
 
 }

@@ -25,20 +25,11 @@ public class Screenwriter {
     @NotNull
     private Date birth;
 
-//    @NotNull
-//    private String info;
-
-
-    //private String img;
-
     @NotNull
     private String mainInfo;
 
     @NotNull
     private String allInfo;
 
-    //Здесь нужно указать инфу о фильмах, в которых участвовал
-    /*
-    @ManyToMany
-    */
+
 }
