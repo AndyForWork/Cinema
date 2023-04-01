@@ -6,20 +6,33 @@
 </head>
 <body>
     <form method="post" th:object="${film}">
+        <p>Ведите название</p>
         <input type="text" name = "name" th:field="*{name}"  th:if="${getFilm == null}" >
         <input type="text" name = "name"  th:if="${getFilm != null}" th:value="${getFilm.name}">
         <br>
+        <p>Введите год выпуска</p>
         <input type="date" name = "year" th:field="*{year}" th:if="${getFilm == null}">
         <input type="date" name = "year"  th:if="${getFilm != null}" th:value="${getFilm.year}">
         <br>
+        <p>Введите информацию о фильме</p>
         <input type="text" name = "info" th:field="*{info}" th:if="${getFilm == null}">
         <input type="text" name = "info"  th:if="${getFilm != null}" th:value="${getFilm.info}">
         <br>
+        <p>Выберите жанр фильма</p>
         <select  name = "genreId", th:object="${genreId}">
             <option th:if="${getFilm != null && getFilm.getGenre()!=null}" th:text="${getFilm.getGenre().name}" th:value="${getFilm.getGenre().id}" selected="selected"></option>
             <option th:each="genre : ${genres}" th:value="${genre.id}" th:text="${genre.name}" th:if="${getFilm == null || (getFilm!=null && getFilm.getGenre() == null) || (getFilm!=null && getFilm.getGenre() !=null && getFilm.getGenre().id != genre.id)}">
             </option>
         </select>
+        <p>Выберите персонал, участвовавший в создании фильма</p>
+        <input type="checkbox" name="staffs"
+               th:name="staffs"
+               th:each="staff : ${staffs}"
+               th:text="${staff.firstName}+' '+${staff.lastName}"
+               th:checked="${staff.isFilmContainsById(getFilm)}"
+               th:value="${staff.id}"
+
+        />
         <button>Подтвердить</button>
     </form>
 </body>

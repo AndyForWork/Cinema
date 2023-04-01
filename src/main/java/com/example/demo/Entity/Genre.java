@@ -30,7 +30,7 @@ public class Genre {
     private String name;
 
     @OneToMany(mappedBy = "genre", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Film> films = new HashSet<>();
+    private List<Film> films = new ArrayList<>();
 
     public Genre() {
     }
@@ -39,4 +39,11 @@ public class Genre {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

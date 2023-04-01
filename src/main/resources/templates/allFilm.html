@@ -8,10 +8,18 @@
 </head>
 <body>
   <div th:each="film : ${films}">
+    <p>Название фильма</p>
     <p th:text="${film.name}"></p>
+    <p>Год выпуска фильма</p>
     <p th:if="${film.year!=null}" th:text="${film.year}"></p>
+    <p>Информация о фильме</p>
     <p th:if="${film.info!=null}" th:text="${film.info}"></p>
+    <p>Жанр фильма</p>
     <p th:if="${film.genre!=null}" th:text="${film.genre.name}"></p>
+    <p>Персонал, участвовавший в создании фильма</p>
+    <div th:each="staff: ${film.staffs}">
+      <p th:text="${staff.firstName}+' '+${staff.lastName}"></p>
+    </div>
     <a th:href="@{'/film/add?id='+${film.id}}" class="btn btn-success" methods="">Изменить</a>
     <a th:href="@{'/film/del?id='+${film.id}}" class="btn btn-success" methods="">Удалить</a>
 
