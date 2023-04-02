@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все виды залов</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div th:each="hallType: ${hallTypes}">
+        <p th:text="${hallType.name}"></p>
+        <p th:text="${hallType.info}"></p>
+        <a th:href="@{'/hall/type/add?id='+${hallType.id}}" class="btn btn-success" methods="">Изменить</a>
+        <a th:href="@{'/hall/type/del?id='+${hallType.id}}" class="btn btn-success" methods="">Удалить</a>
+        <p>*************************</p>
+        <br>
+        <br>
+        <br>
+    </div>
+
+    <a th:href="@{/hall/type/add}" class="btn btn-success" methods="">Добавить</a>
+</body>
+</html>

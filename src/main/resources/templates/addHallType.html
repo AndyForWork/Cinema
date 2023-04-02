@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Типы залов</title>
+</head>
+<body>
+
+<form method="post" th:object="${hallType}">
+    <input type="text" th:name="name" th:if="${getHallType == null}" th:field="*{name}">
+    <input type="text" th:name="name" th:if="${getHallType != null}" th:value="${getHallType.name}">
+    <input type="text" th:name="info" th:if="${getHallType == null}" th:field="*{info}">
+    <input type="text" th:name="info" th:if="${getHallType != null}" th:value="${getHallType.info}">
+    <button>Подтвердить</button>
+</form>
+</body>
+</html>
