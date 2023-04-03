@@ -1,6 +1,8 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.Entity.Hall;
 import com.example.demo.Entity.HallType;
+import com.example.demo.Repository.HallRepository;
 import com.example.demo.Repository.HallTypeRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 @Controller
 public class HallTypeController {
 
+    @Autowired
+    private HallRepository hallRepository;
     @Autowired
     private HallTypeRepository hallTypeRepository;
 
@@ -57,6 +63,13 @@ public class HallTypeController {
 
     @GetMapping("/hall/type/del")
     private RedirectView delHallTypeGet(@RequestParam(required = true) Long id){
+        List<Hall> halls = (List<Hall>) hallRepository.findAll();
+        for (Hall hall: halls){
+            if (hall.getHallType()!=null && hall.getHallType().getId()==id){
+                hall.setHallType(null);
+                hallRepository.save(hall);
+            }
+        }
         hallTypeRepository.deleteById(id);
         return new RedirectView("all");
 

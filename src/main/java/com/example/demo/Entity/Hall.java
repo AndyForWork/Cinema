@@ -16,7 +16,7 @@ public class Hall {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "type_id", nullable = false)
+    @JoinColumn(name = "type_id", nullable = true)
     private HallType hallType;
 
     @NotNull
@@ -25,9 +25,27 @@ public class Hall {
     @NotNull
     private int rows;
 
+
     @ManyToOne
-    @JoinColumn(name = "cinema_id", nullable = false)
+    @JoinColumn(name = "cinema_id", nullable = true)
     private Cinema cinema;
 
+
+    private void addHallType(HallType hallType){
+        this.hallType = hallType;
+        hallType.getHalls().add(this);
+    }
+
+    private void removeHallType(){
+        if (hallType!=null){
+            hallType.getHalls().remove(this);
+            hallType=null;
+        }
+    }
+
+    public void changeHallType(HallType hallType){
+        removeHallType();
+        addHallType(hallType);
+    }
 
 }

@@ -21,6 +21,6 @@ public class HallType {
     @NotNull
     private String info;
 
-    @OneToMany(mappedBy = "hallType", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "hallType")
     private List<Hall> halls = new ArrayList<>();
 }

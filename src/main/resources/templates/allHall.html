@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все залы</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div th:each="hall : ${halls}">
+    <p th:text="${hall.name}"></p>
+    <p th:text="${hall.seatsInRow}"></p>
+    <p th:text="${hall.rows}"></p>
+    <p th:if="${hall.hallType!=null}" th:text="${hall.hallType.name}"></p>
+    <a th:href="@{'/hall/add?id='+${hall.id}}" class="btn btn-success" methods="">Изменить</a>
+    <a th:href="@{'/hall/del?id='+${hall.id}}" class="btn btn-success" methods="">Удалить</a>
+    <p>*************************</p>
+    <br>
+    <br>
+    <br>
+</div>
+
+<a th:href="@{/hall/add}" class="btn btn-success" methods="">Добавить зал</a>
+</body>
+</html>
