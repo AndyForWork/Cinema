@@ -23,4 +23,12 @@ public class HallType {
 
     @OneToMany(mappedBy = "hallType")
     private List<Hall> halls = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "HallType{" +
+                "name='" + name + '\'' +
+                ", info='" + info + '\'' +
+                '}';
+    }
 }

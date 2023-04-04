@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все фильмы</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div th:each="cinema: ${cinemas}">
+      <p th:text = "${cinema.name}"></p>
+      <p th:text = "${cinema.location}"></p>
+      <p th:text = "${cinema.info}"></p>
+      <br>
+        <p th:text="${cinema.halls}"></p>
+      <div th:each="hall :${cinema.halls}">
+        <p th:text="${hall.name}"></p>
+      </div>
+      <a th:href="@{'/cinema/add?id='+${cinema.id}}" class="btn btn-success" methods="">Изменить</a>
+      <a th:href="@{'/cinema/del?id='+${cinema.id}}" class="btn btn-success" methods="">Удалить</a>
+      <p>*************************</p>
+      <br>
+      <br>
+      <br>
+    </div>
+    <a th:href="@{/cinema/add}" class="btn btn-success" methods="">Добавить фильм</a>
+</body>
+</html>

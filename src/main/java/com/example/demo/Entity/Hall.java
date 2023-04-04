@@ -48,4 +48,15 @@ public class Hall {
         addHallType(hallType);
     }
 
+    @Override
+    public String toString() {
+        return "Hall{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", hallType=" + hallType +
+                ", seatsInRow=" + seatsInRow +
+                ", rows=" + rows +
+                ", cinema=" + cinema.getId() +
+                '}';
+    }
 }

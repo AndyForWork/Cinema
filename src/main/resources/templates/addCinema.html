@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление кинотеатра</title>
+</head>
+<body>
+    <form method="post" th:object="${cinema}">
+        <input type="text" name="name" th:if="${getCinema==null}"th:field="*{name}">
+        <input type="text" name="name" th:if="${getCinema!=null}"th:field="${getCinema.name}">
+        <input type="text" name="location" th:if="${getCinema==null}"th:field="*{location}">
+        <input type="text" name="location" th:if="${getCinema!=null}"th:field="${getCinema.location}">
+        <input type="text" name="info" th:if="${getCinema==null || (getCinema != null && getCinema.info == null)}"th:field="*{info}">
+        <input type="text" name="info" th:if="${getCinema!=null && getCinema.info !=null}"th:field="${getCinema.info}">
+        <th:block th:each="hall: ${halls}">
+            <input type="checkbox" name="hallIds" th:value="${hall.id}" th:text="${hall.name}" th:checked="${getCinema != null && getCinema.checkHall(hall.id)}">
+        </th:block>
+
+        <button>Подтвердить</button>
+    </form>
+</body>
+</html>
