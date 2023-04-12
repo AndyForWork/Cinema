@@ -69,6 +69,7 @@ public class FilmController {
             prev.setName(film.getName());
             prev.setInfo(film.getInfo());
             prev.setYear(film.getYear());
+            prev.setDuration(film.getDuration());
             prev.changeStaff(film.getStaffs());
             filmRepository.save(prev);
         }

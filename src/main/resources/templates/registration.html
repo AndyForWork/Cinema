@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>registration</title>
+</head>
+<header>
+  <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
+  <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+</header>
+<body>
+
+<form method="post" th:object="${client}">
+  <h2>Регистрация</h2>
+  <div>
+    <p th:if="${clientNameError != null}" th:text="${clientNameError}"></p>
+    <p th:if="${#fields.hasErrors('name')}"  th:errorclass="error" th:errors="*{name}"  ></p>
+    <input type="text" name="name" placeholder="Username" autofocus="true" th:field="*{name}"></input>
+  </div>
+  <div>
+    <p th:if="${passwordError !=null}" th:text="${passwordError}"></p>
+    <p th:if="${#fields.hasErrors('password')}"  th:errorclass="error" th:errors="*{password}"  ></p>
+    <input type="password" name="password" th:field="*{password}" placeholder="Password"></input>
+  </div>
+  <div>
+    <p th:if="${#fields.hasErrors('passwordConfirm')}"  th:errorclass="error" th:errors="*{passwordConfirm}"  ></p>
+    <input type="password" name="passwordConfirm" th:field="*{passwordConfirm}" placeholder="Confirm your password"></input>
+  </div>
+  <button type="submit">Зарегистрироваться</button>
+</form>
+</body>
+</html>

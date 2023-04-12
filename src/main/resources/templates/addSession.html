@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление сеанса</title>
+    <link rel="stylesheet" href="/assets/css/addSession.css">
+</head>
+<header>
+    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+</header>
+<body>
+    <form  method="post" th:object="${session}">
+        <p>Выбор зала</p>
+        <div th:each="cinema : ${cinemas}">
+            <p th:text="${cinema.name}"></p>
+            <input type="radio"  th:name="hall" th:each="hall : ${cinema.getHalls()}" th:text="${hall.name} + ' ' + ${hall.hallType.name}" th:fiel="*{hall}" th:value="${hall.id}">
+        </div>
+
+        <p>Выбор фильма</p>
+        <input type="radio" name="film" th:each="film : ${films}" th:text = "${film.name}" th:field = "*{film}" th:value="${film.id}">
+
+        <input type="datetime-local" th:name="startTime" th:field="*{startTime}" th:value="${startTime}">
+
+        <input type="number" name="baseCost" placeholder="базовая стоимость 1 места" th:object="${baseCost}">
+
+
+        <button>Подтвердить</button>
+
+        <!--<button class="accordion"><span style="font-size:20px;">☰</span></button>
+        <ul class="panel">
+            <li><button class="tablinks" onclick="openElement(event, 'elem7')">elem7</button></li>
+            <li><button class="tablinks" onclick="openElement(event, 'elem8')">elem8</button></li>
+            <li><button class="tablinks" onclick="openElement(event, 'elem9')">elem9</button></li>
+        </ul>
+        </li>
+        -->
+
+    </form>
+
+</body>
+</html>

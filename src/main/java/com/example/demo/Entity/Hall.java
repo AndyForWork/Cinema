@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
 public class Hall {
@@ -30,6 +33,8 @@ public class Hall {
     @JoinColumn(name = "cinema_id", nullable = true)
     private Cinema cinema;
 
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Session> sessions = new ArrayList<>();
 
     private void addHallType(HallType hallType){
         this.hallType = hallType;
@@ -56,7 +61,6 @@ public class Hall {
                 ", hallType=" + hallType +
                 ", seatsInRow=" + seatsInRow +
                 ", rows=" + rows +
-                ", cinema=" + cinema.getId() +
                 '}';
     }
 }
