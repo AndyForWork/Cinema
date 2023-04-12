@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="/assets/css/search.css">
+</head>
+<header>
+  <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
+  <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+</header>
+  <body>
+    <form method="post">
+      <input type="text" th:name="filmName" th:object="${filmName}">
+      <div class="searchField">
+        <div class="column">
+          <div th:each="film: ${films}">
+            <p>Название фильма</p>
+            <a  th:href="@{'/film/add?id='+${film.id}}" th:text="${film.name}"></a>
+            <p>Год выпуска фильма</p>
+            <p th:text="${film.year}"></p>
+            <p>Информация о фильме</p>
+            <p th:text="${film.info}"></p>
+            <p>длительность фильма</p>
+            <p th:text="${film.duration}"></p>
+            <p>Жанр фильма</p>
+            <p th:text="${film.genre.name}"></p>
+            <p>**********************</p>
+        </div>
+        </div>
+        <div class="column">
+          <div th:each="cinema : ${cinemas}">
+            <p th:text="${cinema.name}"></p>
+
+            <input type="checkbox"  th:name="halls" th:object="${halls}" th:each="hall : ${cinema.getHalls()}" th:text="${hall.name} + ' ' + ${hall.hallType.name}" th:value="${hall.id}">
+
+          </div>
+          <p>Диапазон цен за билет</p>
+          <input type="number" placeholder="от" th:name="minPrice" th:object="${minPrice}">
+          <input type="number" placeholder="до" th:name="maxPrice" th:object="${maxPrice}">
+          <br>
+          <input type="date" th:name="dateOfSession" th:object="${dateOfSession}">
+          <br>
+          <button>Поиск</button>
+        </div>
+      </div>
+
+
+    </form>
+  </body>
+</html>

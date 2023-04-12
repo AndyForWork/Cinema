@@ -1,17 +1,14 @@
 package com.example.demo.Entity;
 
-import com.example.demo.Controllers.GenreController;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.apache.commons.logging.LogFactory;
-import org.apache.juli.logging.Log;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 @Entity
 @Data
@@ -29,11 +26,21 @@ public class Film {
 
     private String info;
 
+    @NotNull
+    @Temporal(TemporalType.TIME)
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="HH:mm:s")
+    private java.util.Date duration;
+
     //private String img;
 
     @ManyToOne
     @JoinColumn(name="genre_id", nullable = true)
     private Genre genre;
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Session> sessions = new ArrayList<>();
+
 
     public Film() {
     }

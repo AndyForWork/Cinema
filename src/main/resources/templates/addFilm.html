@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Добавление фильма</title>
 </head>
+<header>
+    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+</header>
 <body>
     <form method="post" th:object="${film}">
         <p>Ведите название</p>
@@ -17,6 +21,9 @@
         <p>Введите информацию о фильме</p>
         <input type="text" name = "info" th:field="*{info}" th:if="${getFilm == null}">
         <input type="text" name = "info"  th:if="${getFilm != null}" th:value="${getFilm.info}">
+        <p>Введите продолжительность фильма</p>
+        <input step="1" type="time" name = "duration" th:field="*{duration}" th:if="${getFilm == null}">
+        <input step="1" type="time" name = "duration"  th:if="${getFilm != null}" th:value="${getFilm.duration}">
         <br>
         <p>Выберите жанр фильма</p>
         <select  name = "genreId", th:object="${genreId}">
