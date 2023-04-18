@@ -17,7 +17,7 @@
         <div class="column">
           <div th:each="film: ${films}">
             <p>Название фильма</p>
-            <a  th:href="@{'/film/add?id='+${film.id}}" th:text="${film.name}"></a>
+            <a  th:href="@{'/film/get?id='+${film.id}}" th:text="${film.name}"></a>
             <p>Год выпуска фильма</p>
             <p th:text="${film.year}"></p>
             <p>Информация о фильме</p>
@@ -26,6 +26,7 @@
             <p th:text="${film.duration}"></p>
             <p>Жанр фильма</p>
             <p th:text="${film.genre.name}"></p>
+
             <p>**********************</p>
         </div>
         </div>

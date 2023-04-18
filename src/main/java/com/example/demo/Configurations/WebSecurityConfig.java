@@ -33,7 +33,9 @@ public class WebSecurityConfig{
                             try {
                                 authorize
                                         .requestMatchers("/films/all").permitAll()
-                                        .requestMatchers("/film/**").hasRole("USER")
+                                        .requestMatchers("/film/get/**").hasRole("USER")
+                                        .requestMatchers("/search").permitAll()
+                                        .requestMatchers("/film/**").hasRole("ADMIN")
                                         .requestMatchers("/hall/**").hasRole("ADMIN")
                                         .requestMatchers("/genre/**").hasRole("ADMIN")
                                         .requestMatchers("/staff/**").hasRole("ADMIN")
@@ -52,10 +54,10 @@ public class WebSecurityConfig{
                                         .logout()
                                         .permitAll()
                                         .logoutSuccessUrl("/film/all")
-                                        .and()
+                                        /*.and()
                                         .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                                         .and()
-                                        .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
+                                        .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())*/;
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }

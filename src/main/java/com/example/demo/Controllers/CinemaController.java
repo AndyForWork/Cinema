@@ -2,8 +2,11 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Entity.Cinema;
 import com.example.demo.Entity.Hall;
+import com.example.demo.Entity.Seat;
+import com.example.demo.Entity.Session;
 import com.example.demo.Repository.CinemaRepository;
 import com.example.demo.Repository.HallRepository;
+import com.example.demo.Repository.SessionRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class CinemaController {
@@ -23,6 +28,9 @@ public class CinemaController {
 
     @Autowired
     private HallRepository hallRepository;
+
+    @Autowired
+    private SessionRepository sessionRepository;
 
 
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(GenreController.class);
@@ -89,5 +97,20 @@ public class CinemaController {
         cinemaRepository.save(prev);
         cinemaRepository.deleteById(id);
         return new RedirectView("all");
+    }
+
+    @GetMapping("/cinema/profit")
+    private ModelAndView profit(){
+        ModelAndView mav = new ModelAndView("cinemaProfits");
+        Map<Cinema, Long> cinema_profit = new HashMap<>();
+        for (Session session: sessionRepository.findAll()){
+            Long plus = 0L;
+            for (Seat seat: session.getSeats()){
+                plus +=  (seat.isBought() ? 1: 0 ) *seat.getCost();
+            }
+            cinema_profit.put(session.getHall().getCinema(), cinema_profit.getOrDefault(session.getHall().getCinema(), 0L) + plus);
+        }
+        mav.addObject("cinema_profit", cinema_profit);
+        return mav;
     }
 }

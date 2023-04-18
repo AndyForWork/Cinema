@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,17 +18,19 @@ public class Client implements UserDetails {
     private Long id;
 
     @NotNull
-    @Size(min=5, message = "имя должно быть не еменьше 5 символов")
+    @Size(min=5, message = "имя должно быть не меньше 5 символов")
     private String name;
     @NotNull
     @Size(min=5, message = "пароль должен быть не меньше 5 символов")
     private String password;
 
 
-    @NotNull
     @Transient
     @Size(min=5, message = "пароль должен быть не меньше 5 символов")
     private String passwordConfirm;
+
+    @Column(columnDefinition = "bigint default 0")
+    private Long money;
 
     @ManyToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)

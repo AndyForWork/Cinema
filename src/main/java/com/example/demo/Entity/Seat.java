@@ -27,6 +27,9 @@ public class Seat {
         this.cost = cost;
     }
 
+    public Seat() {
+    }
+
     @Override
     public String toString() {
         return "Seat{" +

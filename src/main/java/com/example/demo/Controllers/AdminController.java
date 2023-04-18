@@ -16,9 +16,13 @@ public class AdminController {
     org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AdminController.class);
 
     @GetMapping("/admin")
+    public String mainAdmin(Model model) {
+        return "admin";
+    }
+    @GetMapping("/admin/users")
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.allUsers());
-        return "admin";
+        return "allUsers";
     }
 
     @GetMapping("/admin/del")
@@ -27,7 +31,7 @@ public class AdminController {
         logger.info(String.valueOf(userId));
 
         userService.deleteUser(userId);
-        return "redirect:/admin";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/admin/get/{userId}")

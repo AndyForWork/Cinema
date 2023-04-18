@@ -99,7 +99,7 @@ public class SessionController {
         return mav;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/search")
     private ModelAndView testGet(){
         ModelAndView mav = new ModelAndView("Search");
         mav.addObject("films",filmRepository.findAll());
@@ -107,8 +107,8 @@ public class SessionController {
         return mav;
     }
 
-    @PostMapping("/test")
-    private ModelAndView testPost(@Valid String filmName, @RequestParam(name="halls") ArrayList<Long> halls, @Valid Long minPrice, @Valid Long maxPrice, @Valid String dateOfSession){
+    @PostMapping("/search")
+    private ModelAndView testPost(@Valid String filmName, @RequestParam(name="halls", required = false) ArrayList<Long> halls, @Valid Long minPrice, @Valid Long maxPrice, @Valid String dateOfSession){
         logger.info("ok");
         logger.info(filmName);
         logger.info(String.valueOf(halls));
@@ -116,12 +116,13 @@ public class SessionController {
         logger.info(String.valueOf(maxPrice));
         logger.info(dateOfSession);
         List<Session> res = (List<Session>) sessionRepository.findAll();
-        List<Film> result =  res.stream().filter( c -> Pattern.compile(".*" + filmName + ".*").matcher(c.getFilm().getName()).find())
-                .filter( c -> c.minCost()>=minPrice && c.maxCost()<=maxPrice)
-                .filter( c -> halls.contains(c.getHall().getId()))
-                .filter( c-> {
+        List<Film> result =  res.stream()
+                .filter( c -> Pattern.compile(".*" + filmName + ".*").matcher(c.getFilm().getName()).find())
+                .filter( c -> (minPrice != null && maxPrice != null) ? c.minCost()>=minPrice && c.maxCost()<=maxPrice : true)
+                .filter( c -> (halls != null) ? halls.contains(c.getHall().getId()) : true)
+                .filter( c->  {
                     try {
-                        return dateOfSession != "" && c.getStartTime().getDay() == ((DateFormat) new SimpleDateFormat("yyyy-MM-dd")).parse(dateOfSession).getDay();
+                        return (dateOfSession != "" && dateOfSession!=null) && c.getStartTime().getDay() == ((DateFormat) new SimpleDateFormat("yyyy-MM-dd")).parse(dateOfSession).getDay();
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }

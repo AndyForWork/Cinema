@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class RegistrationController {
@@ -28,12 +30,10 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView addUser(@Valid Client client, BindingResult bindingResult, Model model) {
+    public Object addUser(@Valid Client client, BindingResult bindingResult, Model model) {
         logger.info("registering" + client);
 
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("registration");
-        }
+
         if (!client.getPassword().equals(client.getPasswordConfirm())){
             model.addAttribute("passwordError", "Пароли не совпадают");
             return new ModelAndView("registration");
@@ -43,6 +43,6 @@ public class RegistrationController {
             return new ModelAndView("registration");
         }
 
-        return new ModelAndView("allFilm");
+        return new RedirectView("/film/all");
     }
 }

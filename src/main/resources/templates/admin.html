@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>админ панель</title>
@@ -7,32 +7,21 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
 <header>
-    <a th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-    <a th:href="@{'/account?userId='+${#authentication.principal}}" class="btn btn-success" methods="">Аккаунт</a>
-    <a  th:if="!${#authentication.isAuthenticated()}" th:href="@{'/account?userId='+${#authentication}}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
 </header>
 <body>
-<table>
-    <thead>
-    <th>ID</th>
-    <th>UserName</th>
-    <th>Password</th>
-    <th>Roles</th>
-    </thead>
-    <div th:each="user : ${allUsers}">
-        <tr>
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.password}"></td>
-            <td>
-                <div  th:each="role :${user.roles}" th:text="${role.name}"></div>
-            </td>
-            <td>
-                <a th:href="@{'/admin/del?userId='+${user.id}}" class="btn btn-success" methods="">Удалить пользователя</a>
-            </td>
-        </tr>
-    </div>
-</table>
+
+<a sec:authorize="isAuthenticated()" th:href="@{'/film/all'}" class="btn btn-success" methods="">Фильмы</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/genre/all'}" class="btn btn-success" methods="">Жанры</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/hall/type/all'}" class="btn btn-success" methods="">Типы залов</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/hall/all'}" class="btn btn-success" methods="">Залы</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/cinema/all'}" class="btn btn-success" methods="">Кинотеатры</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/session/add'}" class="btn btn-success" methods="">Добавить сеанс</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/staff/all'}" class="btn btn-success" methods="">Люди участвующие в фильмах</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/admin/users'}" class="btn btn-success" methods="">Пользователи сайта</a>
+<a sec:authorize="isAuthenticated()" th:href="@{'/cinema/profit'}" class="btn btn-success" methods="">Выручка</a>
+
 <a href="/film/all">Главная</a>
 </body>
 </html>

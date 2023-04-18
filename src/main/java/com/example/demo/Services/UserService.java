@@ -54,6 +54,7 @@ public class UserService  implements UserDetailsService {
         client.setRoles(Arrays.asList(roleRepository.findById(1L).get()));
         logger.info(String.valueOf(client));
         client.setPassword(bCryptPasswordEncoder.encode(client.getPassword()));
+        client.setMoney(0L);
         userRepository.save(client);
         return true;
     }
