@@ -32,6 +32,7 @@ public class WebSecurityConfig{
                         authorize -> {
                             try {
                                 authorize
+                                        .requestMatchers("/registration").permitAll()
                                         .requestMatchers("/films/all").permitAll()
                                         .requestMatchers("/film/get/**").hasRole("USER")
                                         .requestMatchers("/search").permitAll()
@@ -43,17 +44,16 @@ public class WebSecurityConfig{
                                         .requestMatchers("/cinema/all").permitAll()
                                         .requestMatchers("/cinema/**").hasRole("ADMIN")
                                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                                        .requestMatchers("/registration").permitAll()
                                         .anyRequest().authenticated()
                                         .and()
                                         .formLogin()
                                         .loginPage("/login")
-                                        .defaultSuccessUrl("/film/all")
+                                        .defaultSuccessUrl("/search")
                                         .permitAll()
                                         .and()
                                         .logout()
                                         .permitAll()
-                                        .logoutSuccessUrl("/film/all")
+                                        .logoutSuccessUrl("/search")
                                         /*.and()
                                         .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                                         .and()
@@ -69,7 +69,7 @@ public class WebSecurityConfig{
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        return (web) -> web.ignoring().requestMatchers("/templates/**");
+        return (web) -> web.ignoring().requestMatchers("/resources/**");
     }
 
 }

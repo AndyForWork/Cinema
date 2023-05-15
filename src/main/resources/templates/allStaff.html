@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Все люди</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-</head>
-<header>
-  <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-  <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+  <link rel="stylesheet" href="/assets/css/search.css">
+</head><header>
+  <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" >Аккаунт</a>
+  <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}">Аккаунт</a>
 </header>
 <body>
-  <div th:each="staff : ${staffs}">
+  <div class="column" style="padding-bottom: 30px; border-bottom: 2px solid #424242;"  th:each="staff : ${staffs}">
+    <p class="info">Имя</p>
     <p th:text="${staff.firstName}"></p>
+    <p class="info">Фамилия</p>
     <p th:text="${staff.lastName}"></p>
+    <p class="info">Дата рождения</p>
     <p th:text="${staff.birth}"></p>
+    <p class="info">Основная информация</p>
     <p th:text="${staff.mainInfo}"></p>
+    <p class="info">Информация</p>
     <p th:text="${staff.allInfo}"></p>
-    <a th:href="@{'/staff/add?id='+${staff.id}}" class="btn btn-success" methods="">Изменить</a>
-    <a th:href="@{'/staff/del?id='+${staff.id}}" class="btn btn-success" methods="">Удалить</a>
-    <p>*************************************</p>
-    <br>
-    <br>
+    <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/staff/add?id='+${staff.id}|" >Изменить</button>
+    <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/staff/del?id='+${staff.id}|" >Удалить</button>
   </div>
 
-  <a th:href="@{/staff/add}" class="btn btn-success" methods="">Добавить</a>
+  <button style="color: white;" onclick="location.href='/staff/add';">Добавить</button>
 </body>
 </html>

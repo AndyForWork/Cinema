@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+  <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
   <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
@@ -17,7 +18,11 @@
              autofocus="true"/>
       <input name="password" type="password" placeholder="Password"/>
       <button type="submit">Log In</button>
-      <h4><a href="/registration">Зарегистрироваться</a></h4>
+      <h4>
+
+        <button onclick="location.href='/registration';" >Зарегистрироваться</button>
+
+      </h4>
     </div>
   </form>
 </div>

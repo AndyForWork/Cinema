@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Все залы</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <body>
 
@@ -12,19 +11,19 @@
     <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
     <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
 </header>
-<div th:each="hall : ${halls}">
+<div  class="column" style="padding-bottom: 30px; border-bottom: 2px solid #424242;" th:each="hall : ${halls}">
+    <p class="info">Название зала</p>
     <p th:text="${hall.name}"></p>
+    <p class="info">Местов в ряду</p>
     <p th:text="${hall.seatsInRow}"></p>
+    <p class="info">Рядов</p>
     <p th:text="${hall.rows}"></p>
+    <p class="info">Тип зала</p>
     <p th:if="${hall.hallType!=null}" th:text="${hall.hallType.name}"></p>
-    <a th:href="@{'/hall/add?id='+${hall.id}}" class="btn btn-success" methods="">Изменить</a>
-    <a th:href="@{'/hall/del?id='+${hall.id}}" class="btn btn-success" methods="">Удалить</a>
-    <p>*************************</p>
-    <br>
-    <br>
-    <br>
-</div>
 
-<a th:href="@{/hall/add}" class="btn btn-success" methods="">Добавить зал</a>
+    <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/hall/add?id='+${hall.id}|" >Изменить</button>
+    <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/hall/del?id='+${hall.id}|" >Удалить</button>
+</div>
+<button onclick="location.href='/hall/add';">Добавить зал</button>
 </body>
 </html>

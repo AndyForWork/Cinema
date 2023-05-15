@@ -2,9 +2,8 @@
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="css/addAuthor.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <title>Человек</title>
+  <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 
 <header>
@@ -30,6 +29,7 @@
   <p>Введите полную информацию о человеке</p>
   <input type="text" class="allInfo" th:if="${getStaff==null}" name = "allInfo" th:field="*{allInfo}">
   <input type="text" class="allInfo" th:if="${getStaff!=null}" name = "allInfo" th:value="${getStaff.allInfo}">
+  <br>
   <button>Подтвердить</button>
 </form>
 </body>

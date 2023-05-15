@@ -4,27 +4,37 @@
     <meta charset="UTF-8">
     <title>Добавление сеанса</title>
     <link rel="stylesheet" href="/assets/css/addSession.css">
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
-    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" >Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}">Аккаунт</a>
 </header>
 <body>
     <form  method="post" th:object="${session}">
-        <p>Выбор зала</p>
+        <p class="info">Зал</p>
         <div th:each="cinema : ${cinemas}">
             <p th:text="${cinema.name}"></p>
-            <input type="radio"  th:name="hall" th:each="hall : ${cinema.getHalls()}" th:text="${hall.name} + ' ' + ${hall.hallType.name}" th:fiel="*{hall}" th:value="${hall.id}">
+            <div th:each="hall : ${cinema.getHalls()}">
+                <input type="radio"  th:name="hall" th:text="${hall.name} + ' ' + ${hall.hallType.name}" th:fiel="*{hall}" th:value="${hall.id}">
+                <br>
+            </div>
+
         </div>
 
-        <p>Выбор фильма</p>
-        <input type="radio" name="film" th:each="film : ${films}" th:text = "${film.name}" th:field = "*{film}" th:value="${film.id}">
-
+        <p class="info">Фильм</p>
+        <div th:each="film : ${films}">
+            <input type="radio" name="film" th:text = "${film.name}" th:field = "*{film}" th:value="${film.id}">
+            <br>
+        </div>
+        <br>
+        <p class="info">Дата сеанса</p>
         <input type="datetime-local" th:name="startTime" th:field="*{startTime}" th:value="${startTime}">
-
+        <br>
+        <p class="info">Цена 1 места</p>
         <input type="number" name="baseCost" placeholder="базовая стоимость 1 места" th:object="${baseCost}">
 
-
+        <br>
         <button>Подтвердить</button>
 
         <!--<button class="accordion"><span style="font-size:20px;">☰</span></button>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление фильма</title>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
     <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
@@ -32,13 +33,17 @@
             </option>
         </select>
         <p>Выберите персонал, участвовавший в создании фильма</p>
-        <input type="checkbox" name="staffs"
-               th:name="staffs"
-               th:each="staff : ${staffs}"
-               th:text="${staff.firstName}+' '+${staff.lastName}"
-               th:checked="${staff.isFilmContainsById(getFilm)}"
-               th:value="${staff.id}"
-        />
+        <div    th:each="staff : ${staffs}">
+
+            <input type="checkbox" name="staffs"
+                   th:name="staffs"
+                   th:text="${staff.firstName}+' '+${staff.lastName}"
+                   th:checked="${staff.isFilmContainsById(getFilm)}"
+                   th:value="${staff.id}"
+            />
+            <br>
+        </div>
+        <br>
         <button>Подтвердить</button>
     </form>
 </body>

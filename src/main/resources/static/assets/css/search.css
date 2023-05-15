@@ -4,10 +4,101 @@
 .column {
 	white-space: normal;
 	display: inline-block;
-	width: 48%;
+	width: 75%;
 	vertical-align: top;
-	background: #fff2e1;
+    margin: 20px 0;
+    border-bottom: 2px solid #424242;
 }
-.searchField .column:first-child {
-	margin-right: 4%;
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-size: calc(10px + 8 * ((100vw - 320px) / (1280 - 320)));
+    font-family: sans-serif;
+    text-indent: 10px;
+    color: white;
+    border-radius: 5px;
+}
+
+header {
+    width: 100%;
+    background-color: #212121;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-shadow: grey 3px 2px 7px;
+    border-bottom: 1px solid #3b3b3b;
+    position: fixed;
+    margin-top: -65px;
+}
+body{
+    background-color: #212121;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+    height: 100%;
+    align-content: center;
+    overflow-x:hidden;
+    flex-wrap: wrap;
+    padding: 65px 0;
+}
+
+button{
+    background: #070707;
+    padding: 5px 30px 5px 20px;
+    border: solid 1px #070707;
+    align-items: center;
+    min-width: 75px;
+    box-shadow: grey 3px 2px 7px;
+    margin-top: 5px;
+}
+button:hover{
+    border: solid 1px #323232;
+    background: #131313;
+    cursor: pointer;
+}
+a:hover{
+    color: grey;
+}
+
+
+input{
+    background-color: #bfbbbb;
+    color: #212121;
+    margin-top: 5px;
+}
+input:hover{
+    box-shadow: grey 3px 2px 7px;
+}
+
+select{
+
+    background-color: #bfbbbb;
+    color: #212121;
+    margin-top: 5px;
+}
+
+
+h2{
+    font-size: calc(19px + 10 * ((100vw - 320px) / (1280 - 320)));
+    margin-top: 55px;
+    margin-bottom: 15px;
+}
+h4{
+    font-size: calc(16px + 10 * ((100vw - 320px) / (1280 - 320)));
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+p.info{
+    color: #4C4C4C;
+    font-size: calc(2px + 8 * ((100vw - 320px) / (1280 - 320)));
+}
+
+div.film_search{
+    margin-bottom: 30px;
+    border-bottom: 2px solid #424242;
 }

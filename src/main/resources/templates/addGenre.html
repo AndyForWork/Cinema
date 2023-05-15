@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>add Genre</title>
+    <title>Добавить жанр</title>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
     <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
@@ -13,6 +14,7 @@
   <p>Введите название жанра</p>
     <input th:if="${getGenre == null}" type="text" th:field="*{name}">
     <input th:if="${getGenre != null}" type="text" name="name" th:value="${getGenre.name}">
+    <br>
     <button>Подтвердить</button>
 </form>
 </body>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${getFilm.name}"></title>
   <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
@@ -14,26 +14,29 @@
   <form method="post" th:action="@{/film/get}">
   <div class="column">
     <div>
-      <p>Название фильма</p>
-      <p th:text="${getFilm.name}"></p>
-      <p>Год выпуска фильма</p>
+      <p class="info">Название фильма</p>
+      <h1>
+        <p  th:text="${getFilm.name}"></p>
+      </h1>
+      <p class="info">Год выпуска фильма</p>
       <p th:text="${getFilm.year}"></p>
-      <p>Информация о фильме</p>
+      <p class="info">Информация о фильме</p>
       <p th:text="${getFilm.info}"></p>
-      <p>длительность фильма</p>
+      <p class="info">длительность фильма</p>
       <p th:text="${getFilm.duration}"></p>
-      <p>Жанр фильма</p>
+      <p class="info">Жанр фильма</p>
       <p th:text="${getFilm.genre.name}"></p>
-
-      <p>**********************</p>
     </div>
   </div>
   <input hidden="hidden" type="number" name="id" th:object="${id}"  th:value="${getFilm.id}">
-  <div class="column">
+  <div class="column" style="padding-bottom: 30px;">
     <div th:each="cinema : ${cinemas}">
       <p th:text="${cinema.name}"></p>
-
-      <input type="checkbox"  th:name="halls" th:object="${halls}" th:each="hall : ${cinema.getHalls()}" th:text="${hall.name} + ' ' + ${hall.hallType.name}" th:value="${hall.id}">
+      <div th:each="hall : ${cinema.getHalls()}">
+        <input type="checkbox"  th:name="halls" th:object="${halls}" th:text="${hall.name} + ' ' + ${hall.hallType.name}" th:value="${hall.id}">
+        <br>
+      </div>
+      <br>
 
     </div>
     <p>Диапазон цен за билет</p>
@@ -54,8 +57,8 @@
     <input hidden="hidden" type="number" name="id" th:object="${id}"  th:value="${getFilm.id}">
     <input hidden="hidden" type="number" name="sessionId" th:object="${sessionId}"  th:value="${ses.id}">
     <input hidden="hidden" type="number" name="buyerId" th:object="${buyerId}"  th:value="${#authentication.principal.id}">
-    <p th:text="${ses.hall.name}"></p>
     <p th:text="${ses.hall.cinema.name}"></p>
+    <p th:text="${ses.hall.name}"></p>
     <p th:text="${ses.hall.cinema.location}"></p>
     <div  th:each="i : ${#numbers.sequence(0, ses.hall.rows -1, 1)}">
       <div th:each="j : ${#numbers.sequence(0, ses.hall.seatsInRow -1 , 1)}" style='display:inline;'>
@@ -67,6 +70,6 @@
     </form>
   </div>
 </div>
-<a href="/film/all">Главная</a>
+<button onclick="location.href='/search';" >Главная</button>
 </body>
 </html>

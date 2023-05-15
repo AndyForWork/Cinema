@@ -2,31 +2,29 @@
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Все фильмы</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <title>Все кинотеатры</title>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
-    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" >Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}">Аккаунт</a>
 </header>
 <body>
-    <div th:each="cinema: ${cinemas}">
+    <div class="column" style="padding-bottom: 30px; border-bottom: 2px solid #424242;" th:each="cinema: ${cinemas}">
+        <p class="info">Название кинотеатра</p>
       <p th:text = "${cinema.name}"></p>
+        <p class="info">Адрес кинотеатра</p>
       <p th:text = "${cinema.location}"></p>
+        <p class="info">Информаци о кинотеатре</p>
       <p th:text = "${cinema.info}"></p>
-      <br>
-        <p th:text="${cinema.halls}"></p>
+        <p class="info">Залы в кинотеатре</p>
       <div th:each="hall :${cinema.halls}">
         <p th:text="${hall.name}"></p>
       </div>
-      <a th:href="@{'/cinema/add?id='+${cinema.id}}" class="btn btn-success" methods="">Изменить</a>
-      <a th:href="@{'/cinema/del?id='+${cinema.id}}" class="btn btn-success" methods="">Удалить</a>
-      <p>*************************</p>
-      <br>
-      <br>
-      <br>
+        <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/cinema/add?id='+${cinema.id}|" >Изменить</button>
+        <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/cinema/del?id='+${cinema.id}|" >Удалить</button>
     </div>
-    <a th:href="@{/cinema/add}" class="btn btn-success" methods="">Добавить фильм</a>
-</body>
+
+    <button style="color: white;" onclick="location.href='/cinema/add';">Добавить кинотеатр</button>
+    </body>
 </html>

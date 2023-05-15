@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Типы залов</title>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
     <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
@@ -11,10 +12,13 @@
 <body>
 
 <form method="post" th:object="${hallType}">
+    <p>Введите азвание типа</p>
     <input type="text" th:name="name" th:if="${getHallType == null}" th:field="*{name}">
     <input type="text" th:name="name" th:if="${getHallType != null}" th:value="${getHallType.name}">
+    <p>Введите информацию о типе</p>
     <input type="text" th:name="info" th:if="${getHallType == null}" th:field="*{info}">
     <input type="text" th:name="info" th:if="${getHallType != null}" th:value="${getHallType.info}">
+    <br>
     <button>Подтвердить</button>
 </form>
 </body>

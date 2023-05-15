@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавление кинотеатра</title>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
     <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
@@ -10,16 +11,24 @@
 </header>
 <body>
     <form method="post" th:object="${cinema}">
+        <p class="info">Название кинотеатра</p>
         <input type="text" name="name" th:if="${getCinema==null}"th:field="*{name}">
         <input type="text" name="name" th:if="${getCinema!=null}"th:field="${getCinema.name}">
+        <br>
+        <p class="info">Адрес кинотеатра</p>
         <input type="text" name="location" th:if="${getCinema==null}"th:field="*{location}">
         <input type="text" name="location" th:if="${getCinema!=null}"th:field="${getCinema.location}">
+        <br>
+        <p class="info">Информация о кинотеатре</p>
         <input type="text" name="info" th:if="${getCinema==null || (getCinema != null && getCinema.info == null)}"th:field="*{info}">
         <input type="text" name="info" th:if="${getCinema!=null && getCinema.info !=null}"th:field="${getCinema.info}">
+        <br>
+        <p class="info">Залы в кинотеатре</p>
         <th:block th:each="hall: ${halls}">
             <input type="checkbox" name="hallIds" th:value="${hall.id}" th:text="${hall.name}" th:checked="${getCinema != null && getCinema.checkHall(hall.id)}">
+            <br>
         </th:block>
-
+        <br>
         <button>Подтвердить</button>
     </form>
 </body>

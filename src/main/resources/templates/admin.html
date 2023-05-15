@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>админ панель</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
-    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" >Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" >Аккаунт</a>
 </header>
 <body>
 
-<a sec:authorize="isAuthenticated()" th:href="@{'/film/all'}" class="btn btn-success" methods="">Фильмы</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/genre/all'}" class="btn btn-success" methods="">Жанры</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/hall/type/all'}" class="btn btn-success" methods="">Типы залов</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/hall/all'}" class="btn btn-success" methods="">Залы</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/cinema/all'}" class="btn btn-success" methods="">Кинотеатры</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/session/add'}" class="btn btn-success" methods="">Добавить сеанс</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/staff/all'}" class="btn btn-success" methods="">Люди участвующие в фильмах</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/admin/users'}" class="btn btn-success" methods="">Пользователи сайта</a>
-<a sec:authorize="isAuthenticated()" th:href="@{'/cinema/profit'}" class="btn btn-success" methods="">Выручка</a>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/film/all';" >Фильмы</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/genre/all';"  >Жанры</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/hall/type/all';" >Типы залов</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/hall/all';" >Залы</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/cinema/all';" > Кинотеатры</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/session/add';">Добавить сеанс</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/staff/all';"  >Люди участвующие в фильмах</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/admin/users';" >Пользователи сайта</button>
+<button sec:authorize="isAuthenticated()" onclick="location.href='/cinema/profit';" >Выручка</button>
 
-<a href="/film/all">Главная</a>
+
+<button onclick="location.href='/search';" >Главная</button>
 </body>
 </html>

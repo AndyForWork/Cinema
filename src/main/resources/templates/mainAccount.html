@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Мой профиль</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
-    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="isAuthenticated()" onclick="location.href='/account?userId='+${#authentication.principal.id}';" >Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" onclick="location.href='/login';" >Аккаунт</a>
 </header>
 <body>
 
+<p class="info">Имя пользователя</p>
 <p th:text="${client.name}"></p>
+<p class="info">На счету:</p>
 <p th:text="${client.money}"></p>
 <form method="post">
     <input hidden="hidden" type="number" name="id" th:object="${id}"  th:value="${client.id}">
-    <p>Добавляя себе денег вы подтверждаете что обязательно отправите их владельцу сайта (просто он ленивый и не хочет запариваться с банками</p>
+    <p>Добавляя себе денег вы подтверждаете что обязательно отправите их владельцу сайта</p>
      <input type="number" name="money" th:object="${money}" >
-    <button>Добавить денег на сайт</button>
+    <button>Добавить денег</button>
 </form>
-<a sec:authorize="isAuthenticated()" th:href="@{'/logout'}" class="btn btn-success" methods="">Выйти из аккаунта</a>
+<button onclick="location.href='/logout';" sec:authorize="isAuthenticated()"  >Выйти из аккаунта</button>
 </body>
 </html>

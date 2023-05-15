@@ -2,28 +2,34 @@
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Зал</title>
+    <title>Добавление зала</title>
+    <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
-    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+    <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" >Аккаунт</a>
+    <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}">Аккаунт</a>
 </header>
 <body>
 <form method="post" th:object="${hall}">
+    <p>Название зала</p>
     <input type="text" th:name="name" th:if="${getHall == null}" th:field="*{name}">
     <input type="text" th:name="name" th:if="${getHall != null}" th:value="${getHall.name}">
+    <p>Количество рядов</p>
     <input type="number" th:name="rows" th:if="${getHall == null}" th:fiel="*{rows}">
     <input type="number" th:name="rows" th:if="${getHall != null}" th:value="${getHall.rows}">
+    <p>Колиечство мест в ряду</p>
     <input type="number" th:name="seatsInRow" th:if="${getHall == null}" th:field="*{seatsInRow}">
     <input type="number" th:name="seatsInRow" th:if="${getHall != null}" th:value="${getHall.seatsInRow}">
     <!--<select name="hallTypeId" th:object="${hallTypeId}">
         <option th:each="hallType: ${hallTypes}" th:text="ok" th:value="2"></option>
     </select>
     -->
+    <p>Типы залов</p>
     <select name = "hallTypeId", th:object="${hallTypeId}">
         <option th:if="${getHall != null && getHall.hallType != null }" th:text="${getHall.hallType.name}" th:value="${getHall.hallType.id}"></option>
         <option th:each="hallType : ${hallTypes}" th:value="${hallType.id}" th:text="${hallType.name}" th:if="${getHall == null || (getHall != null && getHall.hallType==null) || (getHall!= null && getHall.hallType!=null && getHall.hallType.id!=hallType.id)}"></option>
     </select>
+    <br>
     <button>Подтвердить</button>
 </form>
 </body>

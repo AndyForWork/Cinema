@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Пользователи</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
   <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
@@ -27,12 +26,14 @@
       <div  th:each="role :${user.roles}" th:text="${role.name}"></div>
     </td>
     <td>
-      <a th:href="@{'/admin/del?userId='+${user.id}}" class="btn btn-success" methods="">Удалить пользователя</a>
+
+      <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/admin/del?userId='+${user.id}|" >Удалить пользователя</button>
     </td>
   </tr>
+  <br>
 </div>
 </table>
 
-<a href="/film/all">Главная</a>
+<button onclick="location.href='/search';" >Главная</button>
 </body>
 </html>

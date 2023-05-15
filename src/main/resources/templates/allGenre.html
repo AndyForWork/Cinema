@@ -3,24 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Все жанры</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/assets/css/search.css">
 </head>
 <header>
-  <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" class="btn btn-success" methods="">Аккаунт</a>
-  <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-success" methods="">Аккаунт</a>
+  <a sec:authorize="isAuthenticated()" th:href="@{'/account?userId='+${#authentication.principal.id}}" >Аккаунт</a>
+  <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}">Аккаунт</a>
 </header>
 <body>
-<div th:each="genre : ${genres}">
+<div class="column" style="padding-bottom: 30px; border-bottom: 2px solid #424242;" th:each="genre : ${genres}">
   <p th:text="${genre.name}"></p>
-  <a th:href="@{'/genre/add?id='+${genre.id}}" class="btn btn-success" methods="">Изменить</a>
-  <a th:href="@{'/genre/del?id='+${genre.id}}" class="btn btn-success" methods="">Удалить</a>
-  <p>*************************</p>
-  <br>
-  <br>
-  <br>
+  <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/genre/add?id='+${genre.id}|" >Изменить</button>
+  <button sec:authorize="hasRole('ADMIN')" th:onclick="|window.location.href='/genre/del?id='+${genre.id}|" >Удалить</button>
 </div>
 
-  <a th:href="@{/genre/add}" class="btn btn-success" methods="">Добавить жанр</a>
+  <button style="color: white;" onclick="location.href='/genre/add';">Добавить фильм</button>
 </body>
 </html>

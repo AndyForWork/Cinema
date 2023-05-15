@@ -117,12 +117,12 @@ public class SessionController {
         logger.info(dateOfSession);
         List<Session> res = (List<Session>) sessionRepository.findAll();
         List<Film> result =  res.stream()
-                .filter( c -> Pattern.compile(".*" + filmName + ".*").matcher(c.getFilm().getName()).find())
+                //.filter( c -> Pattern.compile(".*" + filmName + ".*").matcher(c.getFilm().getName()).find())
                 .filter( c -> (minPrice != null && maxPrice != null) ? c.minCost()>=minPrice && c.maxCost()<=maxPrice : true)
                 .filter( c -> (halls != null) ? halls.contains(c.getHall().getId()) : true)
                 .filter( c->  {
                     try {
-                        return (dateOfSession != "" && dateOfSession!=null) && c.getStartTime().getDay() == ((DateFormat) new SimpleDateFormat("yyyy-MM-dd")).parse(dateOfSession).getDay();
+                        return dateOfSession == "" || ((dateOfSession != "" && dateOfSession!=null) && c.getStartTime().getDay() == ((DateFormat) new SimpleDateFormat("yyyy-MM-dd")).parse(dateOfSession).getDay());
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
